@@ -1,6 +1,22 @@
+# spring.main 属性可以控制应用程序的某些启动行为
 spring:
   main:
+    #spring.main.web-application-type: none
+    #作用：指定应用程序的 Web 应用类型。
+    #取值：
+    # none：应用程序不作为 Web 应用启动。这通常用于后台任务、批处理、命令行应用程序或者微服务中不需要启动 Web 服务器的情形。
+    # servlet：应用程序作为传统的 Servlet Web 应用启动，通常会启动一个嵌入式的 Tomcat 或 Jetty 服务器。
+    # reactive：应用程序作为反应式 Web 应用启动，通常使用 Netty 作为内嵌服务器，适用于响应式编程模型。
+    #使用场景：
+    # 选择 none 可以减少应用程序在不需要 Web 功能时的开销，是非 Web 应用程序的推荐设置。
     web-application-type: none
+    # spring.main.banner-mode: off
+    #作用：控制 Spring Boot 启动时的 Banner 显示。
+    #取值：
+    # off：禁用启动时的 Banner 显示。不展示 Spring Boot 的默认启动横幅。
+    # console：在控制台中显示启动 Banner。此为默认值。
+    # log：将启动 Banner 输出到日志文件中，而不是控制台。
+    #使用场景：在某些情况下，您可能希望禁用启动 Banner，以减少控制台输出或者在日志文件中保持简洁。
     banner-mode: off
   ai:
     mcp:

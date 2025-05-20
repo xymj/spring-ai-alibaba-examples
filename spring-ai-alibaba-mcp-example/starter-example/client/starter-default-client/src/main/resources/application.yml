@@ -3,12 +3,14 @@ spring:
     name: mcp
   main:
     web-application-type: none
+#    banner-mode: off
   ai:
     dashscope:
       api-key: ${DASH_SCOPE_API_KEY}
     mcp:
       client:
         stdio:
+          # 直接通过配置文件路径加载到Resource类中，spring完成文件路径与资源加载Resource映射
           servers-configuration: classpath:/mcp-servers-config.json
           # 直接配置
           # connections:
