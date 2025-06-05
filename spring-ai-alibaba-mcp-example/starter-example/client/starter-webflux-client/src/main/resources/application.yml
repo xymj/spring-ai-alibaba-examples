@@ -19,7 +19,7 @@ spring:
         sse:
           connections:
             server1:
-              url: http://localhost:8080
+              url: http://localhost:7001
   mandatory-file-encoding: UTF-8
 
 # 调试日志
