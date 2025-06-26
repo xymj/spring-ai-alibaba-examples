@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter</artifactId>
+            <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
         </dependency>
 
         <dependency>
@@ -31,7 +31,7 @@
 
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-redis-store-spring-boot-starter</artifactId>
+            <artifactId>spring-ai-starter-vector-store-redis</artifactId>
         </dependency>
     </dependencies>
 
