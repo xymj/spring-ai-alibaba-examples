@@ -80,6 +80,25 @@ public class DashScopeChatModelController {
 		return stream.map(resp -> resp.getResult().getOutput().getText());
 	}
 
+	/**
+	 * 演示如何获取 LLM 得 token 信息
+	 */
+	@GetMapping("/tokens")
+	public Map<String, Object> tokens(HttpServletResponse response) {
+
+		ChatResponse chatResponse = dashScopeChatModel.call(new Prompt(DEFAULT_PROMPT, DashScopeChatOptions
+				.builder()
+				.withModel(DashScopeApi.ChatModel.QWEN_PLUS.getValue())
+				.build()));
+
+		Map<String, Object> res = new HashMap<>();
+		res.put("output", chatResponse.getResult().getOutput().getText());
+		res.put("output_token", chatResponse.getMetadata().getUsage().getCompletionTokens());
+		res.put("input_token", chatResponse.getMetadata().getUsage().getPromptTokens());
+		res.put("total_token", chatResponse.getMetadata().getUsage().getTotalTokens());
+
+		return res;
+	}
 
 	/**
 	 * 使用编程方式自定义 LLMs ChatOptions 参数， {@link com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions}
@@ -126,6 +145,36 @@ public class DashScopeChatModelController {
 
 		return dashScopeChatModel.stream(new Prompt(prompt, options)).map(resp -> resp.getResult().getOutput().getText());
 
+	}
+
+	@GetMapping("/dashscope/web-search/2")
+	public Map<String, Object> dashScopeWebSearch2(HttpServletResponse response) {
+
+		String prompt = "搜索下关于 Spring AI 的介绍";
+		response.setCharacterEncoding("UTF-8");
+
+		var searchOptions = DashScopeApi.SearchOptions.builder()
+				.forcedSearch(true)
+				.enableSource(true)
+				.searchStrategy("pro")
+				.enableCitation(true)
+				.citationFormat("[<number>]")
+				.build();
+
+		var options = DashScopeChatOptions.builder()
+				.withEnableSearch(true)
+				.withModel(DashScopeApi.ChatModel.DEEPSEEK_V3.getValue())
+				.withSearchOptions(searchOptions)
+				.withTemperature(0.7)
+				.build();
+
+		ChatResponse chatResponse = this.dashScopeChatModel.call(new Prompt(prompt, options));
+		Map<String, Object> res = new HashMap<>();
+
+		res.put("llm-res", chatResponse.getResult().getOutput().getText());
+		res.put("search-info", chatResponse.getResult().getOutput().getMetadata().get("search_info"));
+
+		return res;
 	}
 
 	/**

@@ -17,8 +17,6 @@
 
 package com.alibaba.cloud.ai.application.advisor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClientRequest;
 import org.springframework.ai.chat.client.ChatClientResponse;
 import org.springframework.ai.chat.client.advisor.api.AdvisorChain;
@@ -38,8 +36,6 @@ import java.util.Objects;
  */
 
 public class ReasoningContentAdvisor implements BaseAdvisor {
-
-	private static final Logger logger = LoggerFactory.getLogger(ReasoningContentAdvisor.class);
 
 	private final int order;
 
@@ -85,7 +81,7 @@ public class ReasoningContentAdvisor implements BaseAdvisor {
 					}).toList();
 			
 			ChatResponse thinkChatResp = ChatResponse.builder().from(resp).generations(thinkGenerations).build();
-			return ChatClientResponse.builder().chatResponse(thinkChatResp).build();
+			return ChatClientResponse.builder().context(chatClientResponse.context()).chatResponse(thinkChatResp).build();
 			
 		}
 		
