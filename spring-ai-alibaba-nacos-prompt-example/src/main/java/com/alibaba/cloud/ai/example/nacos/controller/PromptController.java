@@ -74,7 +74,7 @@ public class PromptController {
 
         return client.prompt(prompt)
                 .stream()
-                .content();
+                .content().doOnNext(content -> logger.info("content: {}", content));
     }
 
 }

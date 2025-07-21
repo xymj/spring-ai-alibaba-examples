@@ -26,6 +26,8 @@ spring:
   nacos:
     username: nacos
     password: nacos
+    server-addr: 127.0.0.1:8848
+
 
   ai:
     # 开启 nacos 的 prompt tmpl 监听功能
@@ -33,3 +35,7 @@ spring:
       prompt:
         template:
           enabled: true
+
+logging:
+  level:
+    root: INFO

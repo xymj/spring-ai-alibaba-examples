@@ -75,7 +75,7 @@ public class RoleController {
 						new Prompt(List.of(
 								userMessage,
 								systemMessage)))
-				.stream().content();
+				.stream().content().doOnNext(content -> System.out.println("content: " + content));
 	}
 
 }

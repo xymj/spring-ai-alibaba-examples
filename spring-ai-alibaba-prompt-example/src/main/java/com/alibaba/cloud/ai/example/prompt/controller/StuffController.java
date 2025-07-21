@@ -75,7 +75,7 @@ public class StuffController {
 		}
 
 		return chatClient.prompt(promptTemplate.create(map))
-				.stream().content();
+				.stream().content().doOnNext(content -> System.out.println("content: " + content));
 	}
 
 }
